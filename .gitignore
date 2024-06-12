@@ -1,0 +1,5 @@
+*.pyc
+*.pyi
+/venv
+.env
+/PapyrusProphet
