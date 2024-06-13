@@ -48,7 +48,6 @@ jobs:
             --name ${{ env.CONTAINER_APP_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --image ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:latest \
-            --set-env-vars 'OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}' \
+            --set-env-vars 'OPENAI_API_KEY=secretref:openai' \
             --set-env-vars 'max_output_tokens=8000' \
             --set-env-vars 'max_context_tokens=8000'
-
