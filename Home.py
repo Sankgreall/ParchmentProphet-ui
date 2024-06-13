@@ -3,7 +3,7 @@ import tempfile
 import os
 import pandas as pd
 from random import randint
-from PapyrusProphet.modules.evaluate import compare_samples_nd, compute_average_vector_scores
+from ParchmentProphet.modules.evaluate import compare_samples_nd, compute_average_vector_scores
 import altair as alt
 import json
 df = pd.DataFrame()
