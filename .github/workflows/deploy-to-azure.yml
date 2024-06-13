@@ -31,7 +31,7 @@ jobs:
     - name: Build and push Docker image
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64 -t ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/my-streamlit-app:${{ github.sha }} --push .
+        docker buildx build --platform linux/amd64 -t ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }} --push .
 
     # - name: Azure CLI - Deploy to Azure Container App
     #   uses: azure/CLI@v1
@@ -41,4 +41,4 @@ jobs:
     #       az containerapp update \
     #         --name ${{ env.CONTAINER_APP_NAME }} \
     #         --resource-group ${{ env.RESOURCE_GROUP }} \
-    #         --image ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/my-streamlit-app:${{ github.sha }}
+    #         --image ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }}
