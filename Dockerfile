@@ -5,6 +5,17 @@ FROM python:3.9-slim
 # Set the working directory in the container.
 WORKDIR /app
 
+# Install required dependencies for .NET SDK
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    apt-transport-https \
+    && wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -y dotnet-sdk-6.0 \
+    && rm packages-microsoft-prod.deb
+
 # Copy the requirements file into the container at /app
 COPY requirements.txt /app/requirements.txt
 
