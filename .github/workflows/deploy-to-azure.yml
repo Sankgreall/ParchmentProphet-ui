@@ -31,14 +31,14 @@ jobs:
     - name: Build Docker image
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64 -t ui:${{ github.sha }} .
+        docker buildx build --platform linux/amd64 -t ui:${{ github.sha }} --load .
 
     - name: Tag Docker image
       run: docker tag ui:${{ github.sha }} ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }}
 
     - name: Push Docker image
       run: docker push ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }}
-      
+
     # - name: Azure CLI - Deploy to Azure Container App
     #   uses: azure/CLI@v1
     #   with:
