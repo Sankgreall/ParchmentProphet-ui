@@ -15,24 +15,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Log in to Azure Container Registry
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ env.ACR_LOGIN_SERVER }}
-        username: ${{ secrets.AZURE_ACR_USERNAME }}
-        password: ${{ secrets.AZURE_ACR_PASSWORD }}
+      - name: Log in to Azure Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_ACR_USERNAME }}
+          password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
-    - name: Build and push Docker image
-      run: |
-        docker buildx create --use
-        docker buildx build --platform linux/amd64 -t ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }} --push .
-
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:${{ github.sha }}
+          
     # - name: Azure CLI - Deploy to Azure Container App
     #   uses: azure/CLI@v1
     #   with:
