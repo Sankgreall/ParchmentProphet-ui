@@ -44,10 +44,12 @@ jobs:
       with:
         inlineScript: |
           az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az containerapp secret set -n ${{ env.CONTAINER_APP_NAME }} -g ${{ env.RESOURCE_GROUP }} --secrets openai=${{ secrets.OPENAI_API_KEY }}
           az containerapp update \
             --name ${{ env.CONTAINER_APP_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --image ${{ env.ACR_LOGIN_SERVER }}.azurecr.io/ui:latest \
-            --set-env-vars 'OPENAI_API_KEY=secretref:openai' \
-            --set-env-vars 'max_output_tokens=8000' \
-            --set-env-vars 'max_context_tokens=8000'
+            --set-env-vars OPENAI_API_KEY=secretref:openai \
+            --set-env-vars max_output_tokens=8000 \
+            --set-env-vars max_context_tokens=8000 \
+            --set-env-vars DEPLOY_TIME_IN_SECONDS_SINCE_EPOCH=$(date +%s)
