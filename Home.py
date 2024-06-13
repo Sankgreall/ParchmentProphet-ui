@@ -251,6 +251,8 @@ if not df.empty:
         height=400
     ).interactive()
 
+    st.markdown("# Model Effectiveness by Version")
+
     # Layout with columns for responsiveness
     col1, col2 = st.columns(2)
 
@@ -266,10 +268,13 @@ if not df.empty:
                 st.write("This chart shows the average Euclidian distance and angle between textual vectors representing your samples. In theory, lower values represent models that can produce text that is conceptually similar and topically cohesive compared with your human samples.")        
         st.altair_chart(base_combined, use_container_width=True)
 
+    st.markdown("----")
+    st.markdown("# Best vs Worst Model Comparison")
+    
     col3, col4 = st.columns(2)
 
     with col3:
-        st.subheader(f"Best Model: {df['model_version'].iloc[df['lin_avg_distance'].idxmin()]}")
+        st.subheader(f"Best Model: v{df['model_version'].iloc[df['lin_avg_distance'].idxmin()]}")
 
         best_model = df.loc[df['lin_avg_distance'].idxmin()]
 
@@ -324,7 +329,7 @@ if not df.empty:
             st.write(best_model['ai_sample'])
 
     with col4:
-        st.subheader(f"Worst Model: {df['model_version'].iloc[df['lin_avg_distance'].idxmax()]}")
+        st.subheader(f"Worst Model: v{df['model_version'].iloc[df['lin_avg_distance'].idxmax()]}")
 
         worst_model = df.loc[df['lin_avg_distance'].idxmax()]
 
