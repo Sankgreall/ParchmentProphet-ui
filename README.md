@@ -2,6 +2,8 @@
 
 ParchmentProphet-ui is a Streamlit-based application designed to evaluate and compare human-generated and AI-generated text samples. This tool leverages the [ParchmentProphet](https://github.com/Sankgreall/ParchmentProphet) package to compute linguistic and conceptual similarity metrics between human and AI text samples.
 
+A hosted version is available here: https://parchmentprophet-ca.bravesea-a3cf7791.uksouth.azurecontainerapps.io
+
 ## Features
 
 - Upload text files containing human and AI-generated text samples for evaluation.
